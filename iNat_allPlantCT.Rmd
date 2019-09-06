@@ -53,19 +53,18 @@ column_keep <- c('Current.Scienticfic.Name','Common.Name.s.', 'Origin')
 CT_Flora_Checklist <- CT_Flora_Checklist[,column_keep]
 
 #get rid of the extraneous things at end of scientific name
-CT_Flora_Checklist_sep <- separate(CT_Flora_Checklist, Current.Scienticfic.Name, into = c('genus', 'species'), sep = " ")
-
+CT_Flora_Checklist_sep <- separate(CT_Flora_Checklist, Current.Scienticfic.Name, into = c('genus', 'species'),sep = " ")
 
 #re-combine genus and species in neat form
 CT_Flora_Checklist_new <- unite(CT_Flora_Checklist_sep, 'scientific_name', c('genus', 'species'), sep= " ")
 
-#count by scientific name
+#Count inat observations by scientific name
 all_ct_scientific <- all_ct %>%
   group_by(scientific_name)%>%
   dplyr::summarise(n=n())%>%  
   filter(n>5) 
 
-##join dataset from all obs and CT Flora to get which ones are invasive/native --> Origin layer
+##join dataset from all obs and CT Flora to get which ones are invasive/native.
 combined_datasets <- dplyr::inner_join(all_ct_scientific, CT_Flora_Checklist_new, by= "scientific_name")
 write.csv(combined_datasets, file = "inat_combined.csv")
 
@@ -77,7 +76,7 @@ combined_data_highest$Origin <- revalue(combined_data_highest$Origin, c('E' = 'I
 
 write.csv(combined_data_highest, file = "inat_top30.csv")
 ```
-
+####In the flora CSV there were a few species with multiple entries 
 
 #simplified the common names of these species
 inat_top30 <- read.csv("inat_top30.csv")
