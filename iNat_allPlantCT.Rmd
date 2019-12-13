@@ -2,7 +2,9 @@
 title: "All Plant iNaturalist Observations Connecticut"
 author: "Steven DiFalco"
 date: "9/5/2019"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 ###This document shows how iNaturalist data can be used and some simple code to create map outputs. The data here is all plant observations for the state of Connecticut between 2008-2018, obtained from the iNaturalist website (https://www.inaturalist.org/observations/export). Only research grade, non-cultivated, observations were exported. Some of the code in the following example are borrowed from another tutorial using iNaturalist data (https://github.com/micahfreedman/monarch_map_gif)
 ```{r message=FALSE, warning=FALSE, include=TRUE, paged.print=FALSE}
