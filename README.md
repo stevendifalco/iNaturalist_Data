@@ -1,4 +1,4 @@
-#All Plant iNaturalist Observations for Connecticut
+# All Plant iNaturalist Observations for Connecticut
 Steven DiFalco- 9/5/2019
 
 This document shows how iNaturalist data can be used and some simple code to create map outputs. The data here is all plant observations for the state of Connecticut between 2008-2018, obtained from the iNaturalist website (https://www.inaturalist.org/observations/export). 
