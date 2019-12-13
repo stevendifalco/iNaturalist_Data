@@ -76,20 +76,21 @@ combined_data_highest$Origin <- revalue(combined_data_highest$Origin, c('E' = 'I
 
 write.csv(combined_data_highest, file = "inat_top30.csv")
 ```
+
+```{r include=TRUE}
 ####In the flora CSV there were a few species with multiple entries 
 
 #simplified the common names of these species
 inat_top30 <- read.csv("inat_top30.csv")
 
+#grouping data, with removing two specific users points collected all same day/location
+all_ct_group <- all_ct %>% 
+  group_by(scientific_name, latitude, longitude)%>% 
+  dplyr::summarise(n=n()) 
 
 #join original dataset with invasive codings
 All_CT_withOrigin <- dplyr::left_join(all_ct_group, CT_Flora_Checklist_new, by = "scientific_name")
 All_CT_withOrigin$Origin <- revalue(All_CT_withOrigin$Origin, c('E' = 'Invasive', 'I' = 'Invasive', 'N' = 'Native'))
-
-all_ct_byLogin <- all_ct %>%
-  group_by(scientific_name, user_login) %>%
-  dplyr::summarise(n=n()) %>%
-  filter(n > 10)
 
 #map of ct
 states <- map_data("state")
@@ -109,3 +110,4 @@ ggplot(data= inat_top30, aes(x = reorder(Common.Name.s., n), y= n , fill = Origi
   theme(legend.title = element_blank())+
   coord_flip()
 
+```
